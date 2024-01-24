@@ -1,5 +1,7 @@
 """Здесь надо написать тесты с использованием pytest для модуля item."""
 import pytest
+import os
+import csv
 from src.item import Item
 
 @pytest.fixture
@@ -18,3 +20,20 @@ def test_item_total_price(item_test):
 
 def test_item_apply_discount(item_test):
     assert item_test.apply_discount() == 20000
+
+def test_item_name(item_test):
+    assert item_test.name == "laptop"
+
+def test_item2_name_setter():
+    item = Item('bigkeyboard', 25000, 3)
+    item.name = 'bigkeyboard'
+    assert item.name == 'bigkeyboar'
+
+
+def test_instantiate_from_csv():
+    Item.instantiate_from_csv('src/items.csv')  # создание объектов из данных файла
+    assert len(Item.all) == 5
+
+
+def test_string_to_number():
+    assert Item.string_to_number('5') == 5
