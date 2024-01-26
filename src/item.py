@@ -19,7 +19,7 @@ class Item:
         self.price = price
         self.quantity = quantity
 
-        Item.all.append(self.__name)
+        Item.all.append(self)
 
 
     def __repr__(self):
@@ -38,11 +38,6 @@ class Item:
     @name.setter
     def name(self, value):
         self.__name = value[:10]
-
-        # if len(value) <= 10:
-        #     self.__name = value
-        # else:
-        #     self.__name = value[:10]
 
 
     def calculate_total_price(self) -> float:
@@ -70,9 +65,7 @@ class Item:
             reader = csv.DictReader(file)
             items = list(reader)
             for item in items:
-                print(cls(name=item.get('name'),
-                          price=item.get('price'),
-                          quantity=item.get('quantity')))
+                cls(name=item.get('name'), price=item.get('price'), quantity=item.get('quantity'))
 
 
     @staticmethod
