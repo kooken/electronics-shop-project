@@ -3,11 +3,16 @@ import pytest
 import os
 import csv
 from src.item import Item
+from src.phone import Phone
+
 
 @pytest.fixture
 def item_test():
     return Item('laptop', 20000, 1)
 
+@pytest.fixture
+def phone_test():
+    return Phone('iPhone', 100000, 5, 1)
 
 def test_item_init(item_test):
     assert item_test.name == 'laptop'
@@ -43,3 +48,7 @@ def test_repr(item_test):
 
 def test_str(item_test):
     assert item_test.__str__() == 'laptop'
+
+def test_add(item_test, phone_test):
+    assert item_test + phone_test
+

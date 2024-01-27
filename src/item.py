@@ -1,5 +1,7 @@
 import os
 import csv
+
+
 class Item:
     """
     Класс для представления товара в магазине.
@@ -21,24 +23,25 @@ class Item:
 
         Item.all.append(self)
 
+    def __add__(self, other):
+        if isinstance(other, Item):
+            return self.quantity + other.quantity
+        else:
+            raise TypeError()
 
     def __repr__(self):
         return f"{self.__class__.__name__}('{self.__name}', {self.price}, {self.quantity})"
 
-
     def __str__(self):
         return self.__name
-
 
     @property
     def name(self):
         return self.__name
 
-
     @name.setter
     def name(self, value):
         self.__name = value[:10]
-
 
     def calculate_total_price(self) -> float:
         """
@@ -48,7 +51,6 @@ class Item:
         """
         total_price = int(self.price * self.quantity)
         return total_price
-
 
     def apply_discount(self):
         """
@@ -67,9 +69,6 @@ class Item:
             for item in items:
                 cls(name=item.get('name'), price=item.get('price'), quantity=item.get('quantity'))
 
-
     @staticmethod
     def string_to_number(string):
         return int(float(string))
-
-
