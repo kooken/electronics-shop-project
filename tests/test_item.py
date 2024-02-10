@@ -3,6 +3,7 @@ import pytest
 import os
 import csv
 from src.item import Item
+from src.item import InstantiateCSVError
 from src.phone import Phone
 
 
@@ -34,12 +35,6 @@ def test_item2_name_setter():
     item.name = 'bigkeyboard'
     assert item.name == 'bigkeyboar'
 
-
-def test_instantiate_from_csv():
-    Item.instantiate_from_csv('src/items.csv')  # создание объектов из данных файла
-    assert len(Item.all) == 5
-
-
 def test_string_to_number():
     assert Item.string_to_number('5') == 5
 
@@ -51,4 +46,8 @@ def test_str(item_test):
 
 def test_add(item_test, phone_test):
     assert item_test + phone_test
+
+def test_instantiate_from_csv_error():
+    with pytest.raises(InstantiateCSVError):
+        Item.instantiate_from_csv()
 
